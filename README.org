@@ -1,0 +1,153 @@
+* Component signatures
+  name < inputs > outputs { ... } .(port) -> comp.port, ...
+* Component references
+  [name]
+  [self]
+* Port references
+  ([0-9])
+  (name)
+  (!)
+  (#)
+* Component lists
+  [ signature for each component ]
+* wiring lists
+  source -> sinks (comma separated)
+* special groupings
+  # { ... } wiring + (#)-wiring
+  any { ... } wiring + (!)-wiring + (#)-wiring
+* Port input type
+  (type-name)
+  
+* Port output type
+  (type-name)
+  (#)
+  (!)
+
+* discussion
+  DASL means DaS Language (Diagrams as Syntax Language)
+* general
+** Component names
+   [name]
+** Port names
+   (name)
+** keyword Port names
+*** static
+    (name)
+*** dynamic
+    (*name), e.g.
+    (*!)
+    (*#)
+** Components
+  All Components are described by a signature, plus details, plus output wiring
+  A signature is a name, a set of input port types, and a set of output port types
+*** signature
+    name < input ports > output ports
+*** Details
+    { ... }
+    { [ child components ] wiring }
+*** output value mapping
+    inner port -> outer port
+*** Whole declaration (appearance)
+    name < input ports > output ports { ... } inner output port -> outer output port 
+*** child component
+    signature
+*** wiring
+    [ wire ]
+**** wire
+     source -> [ receiver-list ]
+***** source
+      [component name].(port name)
+***** receiver
+      [component name].(port name)
+***** receiver list
+      [name].(name) ... (whitespace separated)
+*** parameter reference (parameters are always ports)
+    ([1-9]), or
+    (name)
+** child component reference
+    [ [1-9] ]
+   
+** scoping
+   (#) and (!) are dynamically scoped (can be optimized to static scoping on a single diagram)
+   everything else must be explicitly wired
+
+* notes
+  all components signal "done"
+  round (#) components catch all (#) outputs from inner scopes
+  round (!) components catch all (!) outputs from inner scopes
+  (is there an equivalent for inputs?)
+** thought:
+   all square ports are statically scoped and require explicit wiring
+   all round ports are dynamically scoped and "catch" implicit wiring
+   anonymous Components, 1st class Components
+   how deep?  Depends on Architect's wishes, staying true to readability
+   parameters can be named or empty, if named, we can use the name, if empty, system assigns a gensym
+   wiring is static or dynamic (explicit, implicit, resp.)
+   "same as" is written "^"
+   static port is written as square or bullet
+   dynamic port is written as circle-with-shadow or bullet-with-shadow
+   input is green
+   output is yellow or red
+   catch-all-output-exceptions is just an output, but coloured red by convention
+   
+** types
+   not needed in the notation (!)
+   type checking is supplied explicitly by component chains
+   one basic type - event (all other types are explicit)
+   "event" is a transport type, nothing more
+   
+* general
+** Components
+** Ports
+*** static
+    "(name)"
+    flat on diagram (no shadow)
+*** dynamic
+    (*name)
+    shadow on diagram
+*** input
+    green
+*** output
+    yellow and red
+*** internal ports
+    recangular or ellipses (colours as above)
+*** external ports
+    bullets (AND symbols) (colours as above)
+
+* self
+  [.]
+
+
+* 2012-04-28
+** every Component has a signature
+   a signature is 3-tuple {name, inputs, outputs}
+   if name is omitted, [1-9] will be assigned in order of declaration of the parts
+*** inputs declaration
+    < port*
+    
+*** outputs declaration
+    > port*
+** every Composite Component, also, has
+*** a body { ... } containing
+**** a 2-tuple { list-of-children, list-of-connections }
+** every Component name is
+   [name]
+   (open bracket, name, close bracket)
+** self
+   [.]
+** every Port has
+   2-tuple {name, scoping (dynamic/static)}
+   if name is omitted, [1-9] will be assigned in order of declaration
+** every Port name is   
+   (name)
+   (open paren, name, close paren)
+** examples
+   check < () > (BB) (#)
+   check < (R) > (BB) (#)
+* names
+  any character except [ and ], e.g.
+  [abc]
+  [#]
+  [hello world]
+  [new
+  line]
