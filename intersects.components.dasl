@@ -1,0 +1,86 @@
+[main]
+  [main #]
+
+[main #]
+  [ [check] [check] [main # #] ]
+
+[main # #]
+  [ [A smaller than B] [A intersects B] ]
+
+[A smaller than B]
+  [ [A smaller than B Any] ]
+
+[A smaller than B Any]
+  [ [area] [area] [<] ]
+
+[A intersects B]
+  [ [A intersects B *] ]
+
+[A intersects B *]
+  [ [intersects vertically] [intersects horizontally] ]
+
+[check]
+  [ [check #] ]
+
+[check #]
+  [ [is a rectangle] [is not a point] [bounding box] [only vertical and horizontal lines] [perfect rectangle] ]
+
+[intersects horizontally]
+  [ [intersects horizontally any] ]
+
+[intersects horizontally any]
+  [ [fig a] [fig b] [fig c] [fig d] ]
+
+[intersects vertically]
+  [ [intersects vertically any] ]
+
+[intersects vertically any]
+  [ [fig e] [fig f] [fig g] [fig h] ]
+  
+
+[fig a]
+  [ [fig a #] ]
+
+[fig a #]
+  [ [left] [right] [top] [top] [bottom] [left] [make line] [make line] [line A intersects line B] ]
+
+[fig b]
+  [ [fig b #] ]
+
+[fig b #]
+  [ [left] [right] [bottom] [top] [bottom] [left] [make line] [make line] [line A intersects line B] ]
+
+
+[fig c]
+  [ [fig c #] ]
+
+[fig c #]
+  [ [left] [right] [top] [top] [bottom] [right] [make line] [make line] [line A intersects line B] ]
+
+[fig d]
+  [ [fig d #] ]
+
+[fig d #]
+  [ [left] [right] [bottom] [top] [bottom] [right] [make line] [make line] [line A intersects line B] ]
+
+
+[fig e]
+  [ [fig e #] ]
+
+[fig e #]
+  [ [top] [bottom] [left] [left] [right] [top] [make line] [make line] [line A intersects line B] ]
+
+[fig g]
+  [ [fig g #] ]
+
+[fig g #]
+  [ [top] [bottom] [left] [left] [right] [bottom] [make line] [make line] [line A intersects line B] ]
+
+[fig h]
+  [ [fig h #] ]
+
+[fig h #]
+  [ [top] [bottom] [right] [left] [right] [bottom] [make line] [make line] [line A intersects line B] ]
+  
+
+    

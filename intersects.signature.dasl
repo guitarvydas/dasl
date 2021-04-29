@@ -1,0 +1,45 @@
+[main] < (R1) (R2) > (!) (#)
+[main #] < (R1) (R2) > (!) (*#)
+[main # #] < (A) (B) > (*!) (*#)
+
+[check] < (R) > (BB) (#)
+[check #] < (R) > (BB) (*#)
+
+
+[A smaller than B] < (A)  (B) > (!) (~) (#)
+[A smaller than B Any] < ()  () > (*!) (*~) (*#)
+
+[A intersects B] < (BB1) (BB2) > (!) (#)
+[A intersects B *] < (A) (B) > (*!) (*#)
+
+[intersects vertically] < (BB1) (BB2) > (!) (~) (#)
+[intersects vertically Any] < (BB1) (BB2) > (*!) (*~) (*#)
+
+[intersects horizontally] < (BB1) (BB2) > (!) (~) (#)
+[intersects horizontally Any] < (BB1) (BB2) > (*!) (*~) (*#)
+
+
+[fig a] < (BB1) (BB2) > (!) (~) (#)
+[fig a #] < (A) (B) > (*!) (*~) (*#)
+
+[fig b] < (BB1) (BB2) > (!) (~) (#)
+[fig b #] < (A) (B) > (*!) (*~) (*#)
+
+[fig c] < (BB1) (BB2) > (!) (~) (#)
+[fig c #] < (A) (B) > (*!) (*~) (*#)
+
+[fig d] < (BB1) (BB2) > (!) (~) (#)
+[fig d #] < (A) (B) > (*!) (*~) (*#)
+
+[fig e] < (BB1) (BB2) > (!) (~) (#)
+[fig e #] < (A) (B) > (*!) (*~) (*#)
+
+[fig f] < (BB1) (BB2) > (!) (~) (#)
+[fig f #] < (A) (B) > (*!) (*~) (*#)
+
+[fig g] < (BB1) (BB2) > (!) (~) (#)
+[fig g #] < (A) (B) > (*!) (*~) (*#)
+
+[fig h] < (BB1) (BB2) > (!) (~) (#)
+[fig h #] < (A) (B) > (*!) (*~) (*#)
+
