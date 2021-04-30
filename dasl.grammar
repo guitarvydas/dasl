@@ -1,0 +1,30 @@
+dasl {
+  Main = ConnectionSpecs
+  
+  ComponentSpecs = ComponentSpec+
+  ComponentSpec = ComponentName ComponentList
+  ComponentList = "[" ComponentName* "]"
+
+  SignatureSpecs = Signature+
+  Signature = ComponentName Inputs Outputs
+
+  ConnectionSpecs = ConnectionSpec+
+  ConnectionSpec = ComponentName "[" Connection+ "]"
+  Connection = Sender "->" Receiver ("," Receiver)*
+  Receiver = ComponentName "." PortName
+  Sender = ComponentName "." PortName
+
+  ComponentName = "[" name "]"
+  name = namechar*
+  legalChar = ~nl ~ws ~delim any
+  namechar = " " | legalChar
+  Inputs = "<" Input*
+  Input = PortName
+  Outputs = ">" Output*
+  Output = PortName
+  PortName =   "(" ")" -- empty
+             | "(" name? ")" -- nonEmpty
+  nl = "\n"
+  ws = " "
+  delim = "[" | "]" | "(" | ")" | "<" | ">"
+}

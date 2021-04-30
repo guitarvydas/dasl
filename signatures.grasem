@@ -1,0 +1,61 @@
+dasl {
+  Main = SignatureSpecs
+  
+  ComponentSpecs = ComponentSpec+
+  ComponentSpec = ComponentName ComponentList
+  ComponentList = "[" ComponentName* "]"
+
+  SignatureSpecs = Signature+
+  Signature = ComponentName Inputs Outputs
+
+  ConnectionSpecs = ConnectionSpec+
+  ConnectionSpec = ComponentName "[" Connection+ "]"
+  Connection = Sender "->" Receiver ("," Receiver)*
+  Receiver = ComponentName "." PortName
+  Sender = ComponentName "." PortName
+
+  ComponentName = "[" name "]"
+  name = namechar*
+  legalChar = ~nl ~ws ~delim any
+  namechar = " " | legalChar
+  Inputs = "<" Input*
+  Input = PortName
+  Outputs = ">" Output*
+  Output = PortName
+  PortName =   "(" ")" -- empty
+             | "(" name? ")" -- nonEmpty
+  nl = "\n"
+  ws = " "
+  delim = "[" | "]" | "(" | ")" | "<" | ">"
+}
+
+
+  Main [components] =[[${components}]]
+  
+  ComponentSpecs [@specs] =[[${specs}]]
+  ComponentSpec [name list] =[[${name} ${list}\n]]
+  ComponentList [lb @name rb] =[[${lb} ${name} ${rb}]]
+
+  SignatureSpecs [@signatures] =[[${signatures}]]
+  Signature [name inputs outputs] =[[${name} ${inputs} ${outputs}]]
+
+  ConnectionSpecs [@specs] =[[${specs}]]
+  ConnectionSpec [name lb connections rb] =[[${name} ${lb} ${connections} ${rb}]]
+  Receiver [componentName dot portName] = [[${componentName}${dot}${portName}]]
+  Sender [componentName dot portName] = [[${componentName}${dot}${portName}]]
+
+  ComponentName [lb name rb] =[[${lb}${name}${rb}]]
+
+  name [@cs] =[[${cs}]]
+  legalChar [c] = [[${c}]]
+  namechar [c] = [[${c}]]
+  Inputs [lt @input] =[[${lt} ${input}]]
+  Input [portname] =[[${portname}]]
+  Outputs [gt @input] =[[${gt} ${input}]]
+  Output [portname] =[[${portname}]]
+  PortName_empty [lp rp] =[[${lp}${rp}]]
+  PortName_nonEmpty [lp @name rp] =[[${lp}${name}${rp}]]
+  nl [c] =[[${c}]]
+  ws [c] =[[${c}]]
+  delim [c] =[[${c}]]
+
