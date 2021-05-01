@@ -31,15 +31,15 @@ dasl {
 }
 
 
-  Main [components] =[[${components}]]
+  Main [components] = [[${components}]]
   
-  ComponentSpecs [@specs] =[[${specs}]]
+  ComponentSpecs [@specs] = [[${specs}]]
   ComponentSpec [name list] =
     {{
       var nm = _name._glue ();
       scopeAdd ("current component", nm);
     }}
-    [[${list}]]
+    [[${console.log('component("' + name + '", nil).')}${list}]]
   ComponentList [lb @names rb] = [[${names}]]
 
 
@@ -53,8 +53,8 @@ dasl {
 
   ComponentName [lb name rb] =[[${name}]]
   InnerComponentName [lb name rb] =[[
-    contains (\"${scopeGet ('current component')}\", \"${name}\").
-    inside (\"${name}\", \"${scopeGet ('current component')}\").
+contains(\"${scopeGet ('current component')}\", \"${name}\").
+inside(\"${name}\", \"${scopeGet ('current component')}\").
     ]]
 
   name [@cs] =[[${cs}]]
