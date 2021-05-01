@@ -1,2 +1,8 @@
 [main]
   [ [main #] ]
+
+[main #]
+  [ [check] [check] [main # #] ]
+
+[main # #]
+  [ [A smaller than B] [A intersects B] ]

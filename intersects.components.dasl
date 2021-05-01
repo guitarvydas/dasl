@@ -70,6 +70,12 @@
 [fig e #]
   [ [top] [bottom] [left] [left] [right] [top] [make line] [make line] [line A intersects line B] ]
 
+[fig f]
+  [ [fig e #] ]
+
+[fig f #]
+  [ [top] [bottom] [left] [left] [right] [top] [make line] [make line] [line A intersects line B] ]
+
 [fig g]
   [ [fig g #] ]
 
