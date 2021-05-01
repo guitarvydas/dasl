@@ -1,5 +1,19 @@
-componentConnections(Component,Connections) :-
-    bagof(ConnID,connection(ConnID,Component),Connections).
+allDefined(All) :-
+  setof(Defined,component(Defined,nil),All).
 
-allConnections :-
-    bagof([Comp,Conn],componentConnections(Comp,Conn),B),format("~w~n",[B]).
+isComponent(C) :-
+    component(C,nil).
+
+isComponent(C) :-
+    contained(C,_).
+
+allComponents(Set) :-
+    setof(C,isComponent(C),Set).
+
+undefined(C) :-
+    contained(C,_),
+    \+ component(C,nil).
+
+allUndefined(All) :-
+    setof(C,undefined(C),All).
+

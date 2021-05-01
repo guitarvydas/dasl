@@ -39,34 +39,31 @@ dasl {
       var nm = _name._glue ();
       scopeAdd ("current component", nm);
     }}
-    [[${console.log('component("' + name + '", nil).')}${list}]]
+    [[${console.log('component("' + name + '", nil).'),list}]]
   ComponentList [lb @names rb] = [[${names}]]
 
 
-  SignatureSpecs [@signatures] =[[${signatures}]]
-  Signature [name inputs outputs] =[[${name} ${inputs} ${outputs}]]
+  SignatureSpecs [@signatures] = [[${signatures}]]
+  Signature [name inputs outputs] = [[${name} ${inputs} ${outputs}]]
 
-  ConnectionSpecs [@specs] =[[${specs}]]
-  ConnectionSpec [name lb connections rb] =[[${name} ${lb} ${connections} ${rb}]]
+  ConnectionSpecs [@specs] = [[${specs}]]
+  ConnectionSpec [name lb connections rb] = [[${name} ${lb} ${connections} ${rb}]]
   Receiver [componentName dot portName] = [[${componentName}${dot}${portName}]]
   Sender [componentName dot portName] = [[${componentName}${dot}${portName}]]
 
-  ComponentName [lb name rb] =[[${name}]]
-  InnerComponentName [lb name rb] =[[
-contains(\"${scopeGet ('current component')}\", \"${name}\").
-inside(\"${name}\", \"${scopeGet ('current component')}\").
-    ]]
+  ComponentName [lb name rb] = [[${name}]]
+  InnerComponentName [lb name rb] = [[contained(\"${name}\", \"${scopeGet ('current component')}\").\n]]
 
-  name [@cs] =[[${cs}]]
+  name [@cs] = [[${cs}]]
   legalChar [c] = [[${c}]]
   namechar [c] = [[${c}]]
-  Inputs [lt @input] =[[${lt} ${input}]]
-  Input [portname] =[[${portname}]]
-  Outputs [gt @input] =[[${gt} ${input}]]
-  Output [portname] =[[${portname}]]
-  PortName_empty [lp rp] =[[${lp}${rp}]]
-  PortName_nonEmpty [lp @name rp] =[[${lp}${name}${rp}]]
-  nl [c] =[[${c}]]
-  ws [c] =[[${c}]]
-  delim [c] =[[${c}]]
+  Inputs [lt @input] = [[${lt} ${input}]]
+  Input [portname] = [[${portname}]]
+  Outputs [gt @input] = [[${gt} ${input}]]
+  Output [portname] = [[${portname}]]
+  PortName_empty [lp rp] = [[${lp}${rp}]]
+  PortName_nonEmpty [lp @name rp] = [[${lp}${name}${rp}]]
+  nl [c] = [[${c}]]
+  ws [c] = [[${c}]]
+  delim [c] = [[${c}]]
 
