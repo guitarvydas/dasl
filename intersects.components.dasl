@@ -1,5 +1,5 @@
 [main]
-  [main #]
+  [ [main #] ]
 
 [main #]
   [ [check] [check] [main # #] ]
@@ -11,7 +11,7 @@
   [ [A smaller than B Any] ]
 
 [A smaller than B Any]
-  [ [area] [area] [<] ]
+  [ [area] [area] [less] ]
 
 [A intersects B]
   [ [A intersects B *] ]

@@ -1,0 +1,72 @@
+dasl {
+  Main = ComponentSpecs
+  
+  ComponentSpecs = ComponentSpec+
+  ComponentSpec = ComponentName ComponentList
+  ComponentList = "[" InnerComponentName* "]"
+
+  SignatureSpecs = Signature+
+  Signature = ComponentName Inputs Outputs
+
+  ConnectionSpecs = ConnectionSpec+
+  ConnectionSpec = ComponentName "[" Connection+ "]"
+  Connection = Sender "->" Receiver ("," Receiver)*
+  Receiver = ComponentName "." PortName
+  Sender = ComponentName "." PortName
+
+  InnerComponentName = "[" name "]"
+  ComponentName = "[" name "]"
+  name = namechar*
+  legalChar = ~nl ~ws ~delim any
+  namechar = " " | legalChar
+  Inputs = "<" Input*
+  Input = PortName
+  Outputs = ">" Output*
+  Output = PortName
+  PortName =   "(" ")" -- empty
+             | "(" name? ")" -- nonEmpty
+  nl = "\n"
+  ws = " "
+  delim = "[" | "]" | "(" | ")" | "<" | ">"
+}
+
+
+  Main [components] =[[${components}]]
+  
+  ComponentSpecs [@specs] =[[${specs}]]
+  ComponentSpec [name list] =
+    {{
+      var nm = _name._glue ();
+      scopeAdd ("current component", nm);
+    }}
+    [[${list}]]
+  ComponentList [lb @names rb] = [[${names}]]
+
+
+  SignatureSpecs [@signatures] =[[${signatures}]]
+  Signature [name inputs outputs] =[[${name} ${inputs} ${outputs}]]
+
+  ConnectionSpecs [@specs] =[[${specs}]]
+  ConnectionSpec [name lb connections rb] =[[${name} ${lb} ${connections} ${rb}]]
+  Receiver [componentName dot portName] = [[${componentName}${dot}${portName}]]
+  Sender [componentName dot portName] = [[${componentName}${dot}${portName}]]
+
+  ComponentName [lb name rb] =[[${name}]]
+  InnerComponentName [lb name rb] =[[
+    contains (\"${scopeGet ('current component')}\", \"${name}\").
+    inside (\"${name}\", \"${scopeGet ('current component')}\").
+    ]]
+
+  name [@cs] =[[${cs}]]
+  legalChar [c] = [[${c}]]
+  namechar [c] = [[${c}]]
+  Inputs [lt @input] =[[${lt} ${input}]]
+  Input [portname] =[[${portname}]]
+  Outputs [gt @input] =[[${gt} ${input}]]
+  Output [portname] =[[${portname}]]
+  PortName_empty [lp rp] =[[${lp}${rp}]]
+  PortName_nonEmpty [lp @name rp] =[[${lp}${name}${rp}]]
+  nl [c] =[[${c}]]
+  ws [c] =[[${c}]]
+  delim [c] =[[${c}]]
+

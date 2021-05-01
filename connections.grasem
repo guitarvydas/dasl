@@ -1,0 +1,82 @@
+dasl {
+  Main = ConnectionSpecs
+  
+  ComponentSpecs = ComponentSpec+
+  ComponentSpec = ComponentName ComponentList
+  ComponentList = "[" ComponentName* "]"
+
+  SignatureSpecs = Signature+
+  Signature = ComponentName Inputs Outputs
+
+  ConnectionSpecs = ConnectionSpec+
+  ConnectionSpec = ComponentName "[" Connection+ "]"
+  Connection = Sender "->" Receiver ReceiverRest*
+  ReceiverRest = "," Receiver
+  Receiver = ComponentName "." PortName
+  Sender = ComponentName "." PortName
+
+  ComponentName = "[" name "]"
+  name = namechar*
+  legalChar = ~nl ~ws ~delim any
+  namechar = " " | legalChar
+  Inputs = "<" Input*
+  Input = PortName
+  Outputs = ">" Output*
+  Output = PortName
+  PortName =   "(" ")" -- empty
+             | "(" name? ")" -- nonEmpty
+  nl = "\n"
+  ws = " "
+  delim = "[" | "]" | "(" | ")" | "<" | ">"
+}
+
+
+  Main [components] = {{ scopeAdd ('counter', 0); }} [[${components}]]
+  
+  ComponentSpecs [@specs] =[[${specs}]]
+  ComponentSpec [name list] =[[${name} ${list}\n]]
+  ComponentList [lb @name rb] =[[${lb} ${name} ${rb}]]
+
+  SignatureSpecs [@signatures] =[[${signatures}]]
+  Signature [name inputs outputs] =[[${name} ${inputs} ${outputs}]]
+
+  ConnectionSpecs [@specs] =[[${specs}]]
+  ConnectionSpec [name lb @connections rb] =
+    {{
+      var nm = _name._glue ();
+      scopeAdd ("current component", '"' + nm + '"');
+    }}
+    [[${connections}]]
+  Connection [sender arrow receiver1 @receivers] =
+    {{
+      scopeAdd ("connection", "id" + gen ());
+    }}
+    [[connection(${scopeGet ('connection')}, ${scopeGet ('current component')}).\n${sender}${receiver1}${receivers}]]
+
+  Receiver [componentName dot portName] =
+    {{ scopeAdd ("pair", "id" + gen () ); }}
+    [[${console.log ('pairComponent(' + scopeGet ('pair') + ', "' + componentName + '").'), console.log ('pairPort(' + scopeGet ('pair') + ', "' + portName + '").'), console.log ('receiver(' + scopeGet ('pair') + ", " + scopeGet ('current component') + ').'), ""}]]    
+
+  ReceiverRest [comma receiver] =
+    [[${receiver}]]
+    
+  Sender [componentName dot portName] =
+    {{ scopeAdd ("pair", "id" + gen () ); }}
+    [[${console.log ('pairComponent(' + scopeGet ('pair') + ', "' + componentName + '").'), console.log ('pairPort(' + scopeGet ('pair') + ', "' + portName + '").'), console.log ('sender(' + scopeGet ('pair') + ", " + scopeGet ('current component') + ').'), ""}]]
+
+
+  ComponentName [lb name rb] =[[${name}]]
+
+  name [@cs] =[[${cs}]]
+  legalChar [c] = [[${c}]]
+  namechar [c] = [[${c}]]
+  Inputs [lt @input] =[[${lt} ${input}]]
+  Input [portname] =[[${portname}]]
+  Outputs [gt @input] =[[${gt} ${input}]]
+  Output [portname] =[[${portname}]]
+  PortName_empty [lp rp] =[[${lp}${rp}]]
+  PortName_nonEmpty [lp @name rp] =[[${name}]]
+  nl [c] =[[${c}]]
+  ws [c] =[[${c}]]
+  delim [c] =[[${c}]]
+

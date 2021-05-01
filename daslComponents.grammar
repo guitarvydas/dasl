@@ -1,0 +1,18 @@
+daslComponents {
+  ComponentSpecs = ComponentSpec+
+  ComponentSpec = ComponentName ComponentList
+  ComponentList = "[" ComponentName* "]"
+
+  ComponentName = "[" name "]"
+  name = namechar*
+  legalChar = ~nl ~ws ~delim any
+  namechar = " " | legalChar
+  Inputs = "<" Input*
+  Input = PortName
+  Outputs = ">" Output*
+  Output = PortName
+  PortName = "(" name? ")"
+  nl = "\n"
+  ws = " "
+  delim = "[" | "]" | "(" | ")" 
+}
