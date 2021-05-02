@@ -43,3 +43,12 @@
 [fig h] < (BB1) (BB2) > (!) (~) (#)
 [fig h #] < (A) (B) > (*!) (*~) (*#)
 
+
+[area] < (bb) > (N) (*#)
+[left] < (BB) > (x) (*#)
+[top] < (BB) > (x) (*#)
+[right] < (BB) > (x) (*#)
+[bottom] < (BB) > (x) (*#)
+[bounding box] < (R) > (BB) (*#)
+[is a rectangle] < (R) > (R) (*#)
+[is not a point] < (R) > (R) (*#)

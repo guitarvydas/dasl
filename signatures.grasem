@@ -1,18 +1,9 @@
 dasl {
   Main = SignatureSpecs
   
-  ComponentSpecs = ComponentSpec+
-  ComponentSpec = ComponentName ComponentList
-  ComponentList = "[" ComponentName* "]"
-
   SignatureSpecs = Signature+
   Signature = ComponentName Inputs Outputs
 
-  ConnectionSpecs = ConnectionSpec+
-  ConnectionSpec = ComponentName "[" Connection+ "]"
-  Connection = Sender "->" Receiver ("," Receiver)*
-  Receiver = ComponentName "." PortName
-  Sender = ComponentName "." PortName
 
   ComponentName = "[" name "]"
   name = namechar*
@@ -30,21 +21,13 @@ dasl {
 }
 
 
-  Main [components] =[[${components}]]
+  Main [signatures] =[[${signatures}]]
   
-  ComponentSpecs [@specs] =[[${specs}]]
-  ComponentSpec [name list] =[[${name} ${list}\n]]
-  ComponentList [lb @name rb] =[[${lb} ${name} ${rb}]]
-
   SignatureSpecs [@signatures] =[[${signatures}]]
-  Signature [name inputs outputs] =[[${name} ${inputs} ${outputs}]]
+  Signature [name inputs outputs] =[[signature(\"${name}\", \"${inputs} ${outputs}\").\n]]
 
-  ConnectionSpecs [@specs] =[[${specs}]]
-  ConnectionSpec [name lb connections rb] =[[${name} ${lb} ${connections} ${rb}]]
-  Receiver [componentName dot portName] = [[${componentName}${dot}${portName}]]
-  Sender [componentName dot portName] = [[${componentName}${dot}${portName}]]
 
-  ComponentName [lb name rb] =[[${lb}${name}${rb}]]
+  ComponentName [lb name rb] =[[${name}]]
 
   name [@cs] =[[${cs}]]
   legalChar [c] = [[${c}]]
